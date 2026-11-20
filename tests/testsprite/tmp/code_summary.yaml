@@ -1,0 +1,66 @@
+version: "2"
+type: frontend
+tech_stack:
+  - JavaScript
+  - React 18
+  - Vite
+  - Tailwind CSS
+  - TanStack React Query
+routes:
+  - path: /
+    file: frontend/src/features/public/pages/Home.jsx
+    auth_required: false
+    description: Public home landing page
+  - path: /login
+    file: frontend/src/features/public/pages/Login.jsx
+    auth_required: false
+    description: User login page
+  - path: /signup
+    file: frontend/src/features/public/pages/UserSignup.jsx
+    auth_required: false
+    description: Patient registration/signup page
+  - path: /doctor-signup
+    file: frontend/src/features/public/pages/DoctorSignup.jsx
+    auth_required: false
+    description: Doctor registration/signup page
+  - path: /dashboard
+    file: frontend/src/features/patient/pages/PatientDashboardPage.jsx
+    auth_required: true
+    description: Patient dashboard showing appointments and health records
+  - path: /doctor-dashboard
+    file: frontend/src/features/doctor-dashboard/pages/DoctorDashboardPage.jsx
+    auth_required: true
+    description: Doctor dashboard page with summaries of appointments and patient records
+  - path: /hospital-dashboard
+    file: frontend/src/features/hospital/pages/HospitalDashboardPage.jsx
+    auth_required: true
+    description: Hospital admin dashboard page
+features:
+  - name: User Login
+    description: Login with credentials (email and password)
+    files:
+      - frontend/src/features/public/pages/Login.jsx
+      - frontend/src/context/AuthContext.jsx
+    entry_route: /login
+    user_interactions:
+      - Fill email input field
+      - Fill password input field
+      - Click Login button to submit
+      - See success redirect or error messages
+    api_calls:
+      - method: POST
+        endpoint: /api/v1/users/login/
+    auth_required: false
+  - name: Doctor Schedule Management
+    description: Doctor can view and manage their booking slots schedule
+    files:
+      - frontend/src/features/scheduling/pages/DoctorSchedulePage.jsx
+    entry_route: /doctor-schedule
+    user_interactions:
+      - View schedule calendar
+      - Create new slot or modify existing slots
+    api_calls:
+      - method: GET
+        endpoint: /api/v1/scheduling/slots/
+    auth_required: true
+known_limitations: []

@@ -1,0 +1,196 @@
+/**
+ * rtl.css — RTL Support Stylesheet
+ * Sprint 4: CSS Logical Properties + RTL overrides للمساعد
+ *
+ * يُستورد مرة واحدة في AssistantLayout.jsx أو main.jsx
+ */
+
+/* ─── Logical Properties (يعملان في RTL و LTR تلقائياً) ─────────────────── */
+.assistant-page {
+  /* بدلاً من padding-left: 16px */
+  padding-inline-start: var(--space-4);
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────────────────── */
+[dir='rtl'] .assistant-sidebar {
+  left:  unset;
+  right: 0;
+  border-left:  none;
+  border-right: 1px solid var(--border);
+}
+
+[dir='rtl'] .sidebar-item-active {
+  border-left:  none;
+  border-right: 3px solid #fff;
+  padding-right: calc(var(--space-4) - 3px);
+  padding-left:  var(--space-4);
+}
+
+[dir='rtl'] .sidebar-item {
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .sidebar-badge {
+  margin-left:  unset;
+  margin-right: auto;
+}
+
+/* ─── Stat Cards ──────────────────────────────────────────────────────────── */
+[dir='rtl'] .stat-card {
+  border-left:  none;
+  border-right: 4px solid currentColor;
+}
+
+[dir='rtl'] .stat-icon {
+  margin-left:  unset;
+  margin-right: auto;
+}
+
+/* ─── Appointment Row ─────────────────────────────────────────────────────── */
+[dir='rtl'] .appt-row-expanded {
+  border-left:  none;
+  border-right: 3px solid var(--status-color, #0E7490);
+}
+
+[dir='rtl'] .appt-actions {
+  flex-direction: row-reverse;
+}
+
+/* ─── Modal / Dialog ──────────────────────────────────────────────────────── */
+[dir='rtl'] .modal-footer {
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .modal-header .modal-close {
+  left:  var(--space-4);
+  right: unset;
+}
+
+/* ─── Chat ────────────────────────────────────────────────────────────────── */
+[dir='rtl'] .chat-bubble-sent {
+  border-radius: 18px 18px 4px 18px;
+  margin-left:   auto;
+  margin-right:  unset;
+  align-items:   flex-end;
+}
+
+[dir='rtl'] .chat-bubble-recv {
+  border-radius: 18px 18px 18px 4px;
+  margin-right:  auto;
+  margin-left:   unset;
+  align-items:   flex-start;
+}
+
+[dir='rtl'] .chat-input-row {
+  flex-direction: row-reverse;
+}
+
+/* ─── Forms ───────────────────────────────────────────────────────────────── */
+[dir='rtl'] input,
+[dir='rtl'] textarea,
+[dir='rtl'] select {
+  text-align:       right;
+  direction:        rtl;
+  padding-right:    var(--space-3);
+  padding-left:     var(--space-3);
+}
+
+[dir='rtl'] .field-icon-start {
+  left:  unset;
+  right: var(--space-3);
+}
+
+[dir='rtl'] .field-icon-end {
+  right: unset;
+  left:  var(--space-3);
+}
+
+/* ─── Icons that need flipping in RTL ────────────────────────────────────── */
+[dir='rtl'] .icon-flip {
+  transform: scaleX(-1);
+}
+
+/* chevrons / arrows */
+[dir='rtl'] .icon-arrow-right,
+[dir='rtl'] .icon-chevron-right {
+  transform: scaleX(-1);
+}
+
+/* ─── Breadcrumbs / Steps ─────────────────────────────────────────────────── */
+[dir='rtl'] .breadcrumb {
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .step-connector {
+  transform: scaleX(-1);
+}
+
+/* ─── Calendar / Schedule ─────────────────────────────────────────────────── */
+[dir='rtl'] .calendar-nav {
+  flex-direction: row-reverse;
+}
+
+[dir='rtl'] .week-grid {
+  direction: rtl;
+}
+
+/* ─── Tables ──────────────────────────────────────────────────────────────── */
+[dir='rtl'] table {
+  direction: rtl;
+}
+
+[dir='rtl'] th,
+[dir='rtl'] td {
+  text-align: right;
+}
+
+/* ─── Scrollbar (Webkit) — mirror in RTL ─────────────────────────────────── */
+[dir='rtl'] .assistant-scroll::-webkit-scrollbar {
+  /* RTL: scrollbar on left side */
+}
+
+/* ─── Onboarding Steps ────────────────────────────────────────────────────── */
+[dir='rtl'] .onboarding-progress {
+  flex-direction: row-reverse;
+}
+
+/* ─── Tooltip ─────────────────────────────────────────────────────────────── */
+[dir='rtl'] .tooltip-start {
+  left:  unset;
+  right: 0;
+}
+
+/* ─── Notifications ───────────────────────────────────────────────────────── */
+[dir='rtl'] .notification-icon {
+  margin-left:  var(--space-3);
+  margin-right: unset;
+}
+
+[dir='rtl'] .notification-time {
+  text-align: left;
+}
+
+/* ─── Print ───────────────────────────────────────────────────────────────── */
+@media print {
+  [dir='rtl'] .print-page {
+    direction: rtl;
+    text-align: right;
+  }
+
+  [dir='rtl'] .print-header {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ─── Transition override: sidebar slide ─────────────────────────────────── */
+[dir='rtl'] .sidebar-slide-enter {
+  transform: translateX(100%);
+}
+
+[dir='rtl'] .sidebar-slide-enter-active {
+  transform: translateX(0);
+}
+
+[dir='rtl'] .sidebar-slide-exit-active {
+  transform: translateX(100%);
+}

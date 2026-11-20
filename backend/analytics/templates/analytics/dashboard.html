@@ -1,0 +1,50 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>📊 System Analytics Dashboard</h1>
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+
+    <div class="module">
+        <h2>👥 Users</h2>
+        <p>Total Patients: <b>{{ total_patients }}</b></p>
+        <p>Total Doctors: <b>{{ total_doctors }}</b></p>
+    </div>
+
+    <div class="module">
+        <h2>🏥 Facilities</h2>
+        <p>Total Hospitals: <b>{{ total_hospitals }}</b></p>
+        <p>Total Clinics: <b>{{ total_clinics }}</b></p>
+    </div>
+
+    <div class="module">
+        <h2>📅 Appointments</h2>
+        <p>Total: <b>{{ total_appointments }}</b></p>
+        <p>Accepted: <b style="color:green">{{ accepted_appointments }}</b></p>
+        <p>Rejected: <b style="color:red">{{ rejected_appointments }}</b></p>
+        <p>Pending: <b style="color:orange">{{ pending_appointments }}</b></p>
+        <p>Cancelled: <b>{{ cancelled_appointments }}</b></p>
+    </div>
+
+    <div class="module">
+        <h2>🔔 Notifications</h2>
+        <p>Total Sent: <b>{{ total_notifications }}</b></p>
+        <p>Unread: <b>{{ unread_notifications }}</b></p>
+    </div>
+
+    <div class="module">
+        <h2>🔎 Search</h2>
+        <p>Total Searches: <b>{{ total_searches }}</b></p>
+    </div>
+
+</div>
+
+<style>
+.module{
+    background:#444c6664;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+</style>
+{% endblock %}

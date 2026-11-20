@@ -1,0 +1,37 @@
+[run]
+source = .
+omit =
+    */migrations/*
+    */tests/*
+    */test_*.py
+    *_test.py
+    conftest.py
+    manage.py
+    curabook/settings/*
+    curabook/asgi.py
+    curabook/wsgi.py
+    */admin.py
+    */apps.py
+    */fixtures/*
+    scripts/*
+    venv/*
+    .venv/*
+
+[report]
+show_missing = true
+skip_covered = false
+precision = 1
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def __str__
+    raise NotImplementedError
+    if TYPE_CHECKING:
+    if __name__ == .__main__.:
+    @abc.abstractmethod
+    @abstractmethod
+    pass
+
+[html]
+directory = coverage_html
+title = CuraBook Coverage Report

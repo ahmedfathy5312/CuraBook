@@ -1,0 +1,182 @@
+/*
+ * CuraBook — Public Pages Styles  (FIX F-03)
+ * =============================================
+ * Extracted from index.css to reduce global CSS bloat.
+ * Covers: Login · Signup · JoinCura · AboutUs · Contact · Home
+ *
+ * Import in each page component or in PublicLayout:
+ *   import '../../../styles/public-pages.css';
+ */
+
+/* ── Login ───────────────────────────────────────────────────────────────── */
+.login-container {
+  width: 90%; max-width: 460px; margin: 48px auto;
+  background: var(--color-surface); padding: 44px 48px;
+  border-radius: var(--radius-card); box-shadow: var(--shadow-modal); text-align: center;
+}
+.logo-box { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 4px; }
+.login-logo { width: 38px; height: 38px; border-radius: var(--radius-sm); }
+.brand { color: var(--color-primary); font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+.login-title { margin: 16px 0 24px; font-size: 20px; font-weight: 700; color: var(--color-text); }
+.role-box { display: flex; justify-content: center; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+.role {
+  padding: 7px 18px; border-radius: var(--radius-full); border: 1.5px solid var(--color-primary);
+  background: var(--color-surface); color: var(--color-primary); cursor: pointer;
+  transition: var(--transition); font-size: 13px; font-weight: 600; font-family: var(--font-family);
+}
+.role.active { background: var(--color-primary); color: #fff; }
+.role:hover:not(.active) { background: var(--color-primary-lighter); }
+.login-form { display: flex; flex-direction: column; gap: 4px; }
+.login-form input {
+  width: 100%; padding: 13px 16px; margin-bottom: 4px;
+  border: 1.5px solid var(--color-border); border-radius: var(--radius-md);
+  outline: none; font-size: 14px; font-family: var(--font-family);
+  color: var(--color-text); background: var(--color-bg); transition: border-color 0.2s, box-shadow 0.2s;
+}
+.login-form input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27,94,138,0.12); background: #fff; }
+.password-wrapper { position: relative; width: 100%; }
+.password-wrapper input { padding-inline-end: 44px; }
+.eye-icon { position: absolute; inset-inline-end: 14px; top: 50%; transform: translateY(-55%); font-size: 18px; color: var(--color-text-muted); cursor: pointer; transition: color 0.2s; }
+.eye-icon:hover { color: var(--color-primary); }
+.login-btn {
+  width: 100%; border: none; background: var(--color-primary); padding: 13px;
+  border-radius: var(--radius-full); color: #fff; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: var(--transition); font-family: var(--font-family); margin-top: 8px;
+}
+.login-btn:hover:not(:disabled) { background: var(--color-primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,94,138,0.3); }
+.login-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.forgot { display: block; margin-top: 14px; font-size: 13px; color: var(--color-primary); font-weight: 500; }
+.forgot:hover { color: var(--color-primary-dark); }
+.error { color: var(--color-danger); font-size: 12px; text-align: left; margin-top: -2px; margin-bottom: 4px; }
+
+/* ── Signup ──────────────────────────────────────────────────────────────── */
+.signup-container {
+  background: var(--color-surface); padding: 44px 52px;
+  border-radius: var(--radius-card); box-shadow: var(--shadow-modal);
+  max-width: 900px; width: 100%; margin: 48px auto;
+}
+.signup-container .logo { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.signup-container .logo h1 { font-size: 24px; color: var(--color-primary); font-weight: 800; margin: 0; }
+.signup-container .logo-img { height: 34px; width: 34px; border-radius: var(--radius-sm); }
+.signup-container h2 { font-size: 28px; color: var(--color-text); margin-bottom: 4px; font-weight: 700; }
+.signup-container .subtitle { color: var(--color-text-secondary); margin-bottom: 28px; font-size: 14px; }
+.signup-container .form-grid { display: flex; gap: 32px; flex-wrap: wrap; }
+.signup-container .form-left,
+.signup-container .form-right { display: flex; flex-direction: column; flex: 1; gap: 14px; min-width: 280px; }
+.signup-container input,
+.signup-container select,
+.signup-container textarea {
+  padding: 12px 16px; border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md); font-size: 14px; font-family: var(--font-family);
+  outline: none; width: 100%; color: var(--color-text); background: var(--color-bg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.signup-container input:focus,
+.signup-container select:focus,
+.signup-container textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27,94,138,0.12); background: #fff; }
+.signup-container .password-wrapper { position: relative; width: 100%; }
+.signup-container .password-wrapper input { padding-inline-end: 44px; }
+.signup-container .toggle-password { position: absolute; inset-inline-end: 14px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--color-text-muted); cursor: pointer; }
+.signup-container .toggle-password:hover { color: var(--color-primary); }
+.signup-container .btn {
+  display: block; margin: 32px auto 0;
+  background: var(--color-primary); color: #fff; border: none;
+  padding: 13px 44px; font-size: 15px; font-weight: 600; border-radius: var(--radius-full);
+  cursor: pointer; transition: var(--transition); font-family: var(--font-family);
+}
+.signup-container .btn:hover:not(:disabled) { background: var(--color-primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,94,138,0.3); }
+.signup-container .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.signup-container .error { color: var(--color-danger); font-size: 12px; margin: 2px 4px 0; }
+
+/* ── JoinCura ────────────────────────────────────────────────────────────── */
+.join-container {
+  background: linear-gradient(135deg, var(--color-primary-lighter) 0%, #e0f2f1 100%);
+  display: flex; justify-content: center; align-items: center; flex: 1;
+  min-height: calc(100vh - var(--navbar-height)); padding: 40px 20px;
+}
+.join-box {
+  background: var(--color-surface); width: 440px; padding: 52px 44px 60px;
+  border-radius: var(--radius-card); box-shadow: var(--shadow-modal); text-align: center;
+}
+.join-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.join-logo img { width: 40px; height: 40px; border-radius: var(--radius-sm); }
+.join-logo h1 { font-size: 22px; color: var(--color-primary); font-weight: 800; margin: 0; }
+.join-title { font-size: 28px; font-weight: 700; color: var(--color-text); margin-bottom: 36px; line-height: 1.3; }
+.join-btn {
+  display: block; width: 100%; padding: 14px 0; margin: 12px auto;
+  font-size: 15px; font-weight: 600; color: var(--color-primary);
+  border: 1.5px solid var(--color-primary); border-radius: var(--radius-full);
+  background: var(--color-surface); cursor: pointer; transition: var(--transition); font-family: var(--font-family);
+}
+.join-btn:hover { background: var(--color-primary); color: #fff; box-shadow: 0 6px 20px rgba(27,94,138,0.25); transform: translateY(-1px); }
+.join-btn.selected { background: var(--color-primary); color: #fff; }
+
+/* ── About Us ────────────────────────────────────────────────────────────── */
+.about-container { width: 100%; padding: 64px 80px; background: var(--color-surface); }
+.about-section { display: flex; justify-content: space-between; align-items: flex-start; gap: 56px; padding-bottom: 56px; border-bottom: 1px solid var(--color-border); margin-bottom: 40px; }
+.about-text { width: 58%; }
+.about-text h1 { font-size: 36px; font-weight: 800; margin-bottom: 20px; color: var(--color-primary); line-height: 1.2; }
+.about-text p { font-size: 15px; line-height: 1.75; margin-bottom: 16px; color: var(--color-text-secondary); }
+.about-img-box { width: 40%; display: flex; justify-content: center; align-items: flex-start; }
+.about-img-box img { width: 100%; max-width: 380px; border-radius: var(--radius-card); filter: drop-shadow(0 8px 24px rgba(27,94,138,0.15)); }
+.mission-section, .vision-section { margin-bottom: 40px; }
+.mission-section h2, .vision-section h2 { font-size: 26px; font-weight: 700; color: var(--color-primary); margin-bottom: 14px; }
+.mission-section p, .vision-section p { font-size: 15px; line-height: 1.75; margin-bottom: 12px; color: var(--color-text-secondary); }
+.final-tagline { font-size: 22px; font-weight: 700; color: var(--color-primary); margin-top: 48px; padding: 28px 32px; background: var(--color-primary-lighter); border-radius: 16px; border-left: 4px solid var(--color-primary); }
+
+/* ── Contact ─────────────────────────────────────────────────────────────── */
+.contact-wrapper { width: 100%; flex: 1; background: var(--color-bg); padding-bottom: 60px; }
+.contact-page-container { max-width: 1100px; margin: 48px auto; padding: 0 24px; }
+.contact-box { display: flex; justify-content: space-between; background: var(--color-surface); border-radius: var(--radius-card); padding: 48px; border: 1px solid var(--color-border); box-shadow: var(--shadow-card); flex-wrap: wrap; gap: 40px; }
+.contact-left { flex: 1 1 420px; }
+.contact-title { color: var(--color-primary); font-size: 24px; margin-bottom: 28px; font-weight: 700; }
+.input-group { position: relative; margin-bottom: 16px; }
+.input-group i { position: absolute; top: 50%; left: 16px; transform: translateY(-50%); color: var(--color-text-muted); font-size: 15px; }
+.input-group textarea ~ i { top: 18px; transform: none; }
+.input-group input,
+.input-group textarea {
+  width: 100%; padding: 13px 16px 13px 44px; border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border); outline: none; font-size: 14px;
+  font-family: var(--font-family); color: var(--color-text); background: var(--color-bg);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-group input:focus,
+.input-group textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27,94,138,0.12); background: #fff; }
+.input-group textarea { height: 120px; resize: none; padding-top: 14px; }
+.send-btn { width: 100%; background: var(--color-primary); color: #fff; padding: 13px; border-radius: var(--radius-full); border: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: var(--transition); font-family: var(--font-family); margin-top: 8px; }
+.send-btn:hover { background: var(--color-primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,94,138,0.3); }
+.contact-right { flex: 1 1 320px; display: flex; justify-content: center; align-items: center; }
+.contact-right img { width: 100%; max-width: 340px; filter: drop-shadow(0 8px 24px rgba(27,94,138,0.15)); }
+
+/* ── Popup / Modal ───────────────────────────────────────────────────────── */
+.popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; }
+.box { background: var(--color-surface); border-radius: var(--radius-card); border: 1px solid var(--color-border); box-shadow: var(--shadow-modal); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.button { width: 100%; display: flex; justify-content: center; align-items: center; }
+.B { background: var(--color-primary) !important; width: 80%; border-radius: var(--radius-md) !important; font-family: var(--font-family); font-weight: 600; }
+.B:hover { background: var(--color-primary-dark) !important; }
+.text { margin-bottom: 20px; color: var(--color-primary); font-weight: 700; }
+.detales { font-weight: 400; }
+.text2 { margin-bottom: 20px; margin-top: 0; color: var(--color-primary); }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-container { padding: 40px 24px; }
+  .about-section { flex-direction: column; gap: 32px; }
+  .about-text, .about-img-box { width: 100%; }
+  .contact-box { padding: 28px 20px; }
+}
+@media (max-width: 768px) {
+  .signup-container { padding: 28px 20px; margin: 0; border-radius: 0; box-shadow: none; min-height: 100dvh; }
+  .signup-container .form-grid { flex-direction: column; gap: 0; }
+  .signup-container .form-left, .signup-container .form-right { min-width: unset; width: 100%; }
+  .signup-container .btn { width: 100%; padding: 13px; }
+  .input-group i { display: none; }
+  .input-group input, .input-group textarea { padding-inline-start: 16px; }
+}
+@media (max-width: 520px) {
+  .login-container { width: 100%; margin: 0; border-radius: 0; padding: 32px 20px; min-height: 100dvh; box-shadow: none; }
+  .join-container { align-items: flex-start; padding: 20px 16px; }
+  .join-box { width: 100%; padding: 36px 24px 44px; border-radius: 16px; }
+  .join-title { font-size: 22px; margin-bottom: 28px; }
+  .box { width: 92vw !important; max-height: 90dvh; overflow-y: auto; }
+}

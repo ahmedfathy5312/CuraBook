@@ -1,0 +1,715 @@
+[
+  {
+    "id": "TC001",
+    "title": "Patient signs in and reaches the patient dashboard",
+    "description": "This verifies a patient can authenticate with valid credentials and land on the protected patient dashboard.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the patient dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify patient summary content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Doctor signs in and reaches the doctor dashboard",
+    "description": "This verifies a doctor can authenticate with valid credentials and land on the protected doctor dashboard.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the doctor dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify doctor summary content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Hospital admin signs in and reaches the hospital dashboard",
+    "description": "This verifies a hospital admin can authenticate with valid credentials and land on the protected hospital dashboard.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the hospital dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify administrative summary content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Patient can sign in and reach the dashboard",
+    "description": "This verifies that a patient can authenticate successfully and land on the patient dashboard with their core summaries visible.",
+    "category": "Patient Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the patient dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointments and health record summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Doctor can sign in and reach the dashboard",
+    "description": "This verifies that a doctor can authenticate successfully and land on the doctor dashboard with appointment and patient record summaries visible.",
+    "category": "Doctor Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the doctor dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointments and patient record summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Hospital admin can sign in and reach the dashboard",
+    "description": "This verifies that a hospital administrator can authenticate successfully and land on the hospital dashboard with administrative summaries visible.",
+    "category": "Hospital Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the hospital dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify administrative summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Invalid sign-in is rejected",
+    "description": "This verifies invalid login credentials are rejected and the user does not enter a protected dashboard.",
+    "category": "Authentication and post-login access",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with invalid credentials"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with invalid credentials"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a login error message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify no protected dashboard is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Invalid login is rejected with an error message",
+    "description": "This verifies submitting invalid credentials on the login page shows an error and does not authenticate the user.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with invalid@example.com"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with invalid-password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a login error message is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a protected dashboard is not displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Patient dashboard access is protected after sign-in",
+    "description": "This verifies that a signed-in patient can access the dashboard route and see the same patient workspace after navigation.",
+    "category": "Patient Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the patient dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the patient dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointments and health record summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "Protected routes stay accessible after sign-in",
+    "description": "This verifies authenticated users can reach their role dashboard through protected routes after sign-in.",
+    "category": "Authentication and post-login access",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to the role dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the protected dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the role-specific dashboard content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Doctor dashboard access is protected after sign-in",
+    "description": "This verifies that a signed-in doctor can access the doctor dashboard route and see the doctor workspace after navigation.",
+    "category": "Doctor Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the doctor dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the doctor dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointments and patient record summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Hospital dashboard access is protected after sign-in",
+    "description": "This verifies that a signed-in hospital administrator can access the hospital dashboard route and see the administrative workspace after navigation.",
+    "category": "Hospital Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to open the hospital dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the hospital dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify administrative summaries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Doctor views and updates schedule availability",
+    "description": "This verifies a doctor can open the schedule page, review the calendar, and create or modify availability slots with the updated schedule reflected afterward.",
+    "category": "Doctor Schedule Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the doctor schedule page"
+      },
+      {
+        "type": "action",
+        "description": "Create or modify an availability slot using valid schedule details"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the schedule calendar is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated availability is reflected in the calendar"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Patient dashboard shows appointments and health records after sign-in",
+    "description": "This verifies a signed-in patient can view the key summary sections that the dashboard exists to provide.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify appointments summary content is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify health record summary content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Hospital dashboard shows administrative summaries after sign-in",
+    "description": "This verifies a signed-in hospital admin can view the dashboard summaries needed for daily operations.",
+    "category": "User Login",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify administrative summary content is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard overview content is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Patient registration confirms handoff to sign in",
+    "description": "This verifies a new patient can register successfully and is guided back to sign in afterward.",
+    "category": "Account creation flows",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signup"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration form with valid patient details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a registration confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the sign in entry point is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC017",
+    "title": "Patient registration completes with confirmation",
+    "description": "This verifies a new patient can create an account and see confirmation or next-step access to sign in.",
+    "category": "Patient Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /signup"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration details with valid patient information"
+      },
+      {
+        "type": "action",
+        "description": "Submit the signup form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an account creation confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify sign-in access is available"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC018",
+    "title": "Doctor registration confirms handoff to sign in",
+    "description": "This verifies a new doctor can register successfully and is guided back to sign in afterward.",
+    "category": "Account creation flows",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /doctor-signup"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration form with valid doctor details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the registration form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a registration confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the sign in entry point is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC019",
+    "title": "Doctor registration completes with confirmation",
+    "description": "This verifies a new doctor can create an account and see confirmation or next-step access to sign in.",
+    "category": "Doctor Registration",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /doctor-signup"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the registration details with valid doctor information"
+      },
+      {
+        "type": "action",
+        "description": "Submit the signup form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an account creation confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify sign-in access is available"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC020",
+    "title": "Landing page leads to the correct auth entry points",
+    "description": "This verifies a new visitor can find the correct login and registration entry points from the public home page.",
+    "category": "Account creation flows",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to sign in"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the login page is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Navigate back to the home page"
+      },
+      {
+        "type": "action",
+        "description": "Click the link to patient registration"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the patient registration page is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC021",
+    "title": "Doctor cannot save overlapping availability",
+    "description": "This verifies the schedule UI prevents overlapping slots from being saved and keeps the calendar consistent.",
+    "category": "Doctor Schedule Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the doctor schedule page"
+      },
+      {
+        "type": "action",
+        "description": "Create a valid availability slot"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to create an overlapping availability slot"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an overlap validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the calendar remains unchanged for the conflicting slot"
+      }
+    ],
+    "priority": "Low"
+  }
+]

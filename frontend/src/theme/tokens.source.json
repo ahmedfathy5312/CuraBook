@@ -1,0 +1,86 @@
+{
+  "_comment": "CuraBook Design Tokens — Single Source of Truth v23",
+  "_usage": "Run: node src/theme/build-tokens.js to regenerate tokens.js, tailwind extend, and CSS vars",
+  "colors": {
+    "primary": {
+      "DEFAULT": "#0E7490",
+      "light":   "#0891B2",
+      "pale":    "#E0F7FA",
+      "dark":    "#0C6478",
+      "darker":  "#083344",
+      "lighter": "#E0F7FA",
+      "50":      "#ECFEFF",
+      "100":     "#E0F7FA",
+      "200":     "#A5F3FC",
+      "500":     "#0E7490",
+      "700":     "#0C6478",
+      "900":     "#083344"
+    },
+    "accent": {
+      "DEFAULT": "#E5701F",
+      "light":   "#FEF0E6",
+      "pale":    "#FEF0E6",
+      "dark":    "#C45A10",
+      "darker":  "#A04510"
+    },
+    "success": {
+      "DEFAULT": "#1A8A5A",
+      "light":   "#E8F5EE",
+      "dark":    "#156B46",
+      "bg":      "#E8F5EE",
+      "text":    "#0D4A30"
+    },
+    "danger": {
+      "DEFAULT": "#D93025",
+      "light":   "#FEE8E6",
+      "dark":    "#B02419"
+    },
+    "warning": {
+      "DEFAULT": "#E97A2F",
+      "light":   "#FEF3E8",
+      "dark":    "#C45A10"
+    },
+    "bg":      "#F2F7FC",
+    "surface": "#FAFCFE",
+    "border":  "#DDE8F0",
+    "text":    "#1A2E3D",
+    "text-secondary": "#5D7E96",
+    "text-muted":     "#8AAFC4"
+  },
+  "spacing": {
+    "xs":  "4px",
+    "sm":  "8px",
+    "md":  "16px",
+    "lg":  "24px",
+    "xl":  "32px",
+    "2xl": "48px",
+    "3xl": "64px"
+  },
+  "borderRadius": {
+    "sm":   "6px",
+    "md":   "10px",
+    "lg":   "14px",
+    "xl":   "20px",
+    "full": "9999px"
+  },
+  "fontSize": {
+    "xs":  "11px",
+    "sm":  "13px",
+    "md":  "15px",
+    "lg":  "17px",
+    "xl":  "20px",
+    "2xl": "24px",
+    "3xl": "30px",
+    "4xl": "36px"
+  },
+  "fontFamily": {
+    "sans": ["Cairo", "Inter", "sans-serif"],
+    "mono": ["JetBrains Mono", "monospace"]
+  },
+  "shadow": {
+    "sm":  "0 1px 3px rgba(14,116,144,0.08)",
+    "md":  "0 4px 12px rgba(14,116,144,0.12)",
+    "lg":  "0 8px 24px rgba(14,116,144,0.16)",
+    "xl":  "0 16px 40px rgba(14,116,144,0.20)"
+  }
+}

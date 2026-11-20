@@ -1,0 +1,52 @@
+{% extends "email/base.html" %}
+{% block content %}
+{# FIX B-12: This template was referenced by Celery tasks but did not exist. #}
+
+<p>مرحباً <strong>{{ patient_name }}</strong>،</p>
+
+<p>
+  قام <strong>د. {{ doctor_name }}</strong> بكتابة وصفة طبية جديدة لك.
+  يمكنك الاطلاع عليها الآن من خلال حسابك على منصة CuraBook.
+</p>
+
+<div class="highlight-box">
+  <div class="label">💊 الدواء</div>
+  <div class="value">{{ medication_name }}</div>
+</div>
+
+{% if dosage %}
+<div class="highlight-box">
+  <div class="label">📋 الجرعة</div>
+  <div class="value">{{ dosage }}</div>
+</div>
+{% endif %}
+
+{% if duration %}
+<div class="highlight-box">
+  <div class="label">📅 مدة العلاج</div>
+  <div class="value">{{ duration }}</div>
+</div>
+{% endif %}
+
+{% if notes %}
+<div class="highlight-box">
+  <div class="label">📝 ملاحظات الطبيب</div>
+  <div class="value">{{ notes }}</div>
+</div>
+{% endif %}
+
+<div class="highlight-box">
+  <div class="label">👨‍⚕️ الطبيب المعالج</div>
+  <div class="value">د. {{ doctor_name }}{% if doctor_specialty %} — {{ doctor_specialty }}{% endif %}</div>
+</div>
+
+<p style="margin-top:24px;">
+  <a href="{{ frontend_url }}/prescriptions" class="btn">
+    عرض الوصفة الطبية
+  </a>
+</p>
+
+<p style="color:#666; font-size:13px; margin-top:16px;">
+  إذا كان لديك أي استفسار حول هذه الوصفة، يرجى التواصل مع طبيبك المعالج.
+</p>
+{% endblock %}

@@ -1,0 +1,84 @@
+# ============================================================
+# CuraBook — Python Dependencies
+# ============================================================
+
+# Core
+Django==5.1.4
+djangorestframework==3.15.2
+django-filter==24.3
+
+# Database
+psycopg2-binary==2.9.9
+
+# Auth
+djangorestframework-simplejwt==5.3.1
+argon2-cffi==23.1.0
+
+# CORS
+django-cors-headers==4.4.0
+
+# WebSocket (Channels)
+channels==4.1.0
+channels-redis==4.2.0
+daphne==4.1.2
+
+# Celery + Scheduler
+celery==5.4.0
+redis==5.0.8
+django-redis==5.4.0
+django-celery-beat==2.9.0      # DB-backed periodic tasks scheduler
+django-celery-results==2.5.1   # Store task results in DB
+
+# OpenAPI / Swagger
+drf-spectacular==0.27.2
+drf-nested-routers==0.94.1
+
+# File Storage (S3 / MinIO — optional, needed in production)
+django-storages==1.14.4
+boto3==1.35.0
+
+# Utils
+python-decouple==3.8
+Pillow==10.4.0
+
+# Testing
+pytest==8.3.2
+pytest-django==4.9.0
+pytest-asyncio==0.23.8
+factory-boy==3.3.1
+coverage==7.6.1
+
+# Development / Query Monitoring
+# ✅ FIX #31: django-silk — SQL query profiling and monitoring
+# Enable in dev/staging only (see settings/dev.py for configuration)
+# Provides: /silk/ dashboard with query counts, slow queries, request timeline
+django-silk==5.1.0
+
+# Production
+# Monitoring
+sentry-sdk[django]==2.14.0
+gunicorn==22.0.0
+whitenoise==6.7.0
+django-prometheus==2.3.1
+
+# Feature Flags
+django-waffle==4.1.0         # Feature flags
+structlog==24.4.0            # Structured logging
+
+# Security
+django-csp==3.8
+cryptography>=42.0.0          # F-12: RS256 JWT signing (RSA key operations)              # Content Security Policy headers (XSS protection)
+python-json-logger==2.0.7
+python-magic==0.4.27
+
+# ── Optional: SMS Providers ────────────────────────────────────────────────────
+# Uncomment the provider you want to use (set SMS_PROVIDER env var to match).
+# twilio==9.3.7             # Twilio SMS (SMS_PROVIDER=twilio)
+# vonage==3.14.0            # Vonage / Nexmo SMS (SMS_PROVIDER=vonage)
+
+# Billing
+stripe==10.12.0             # Stripe payment processing
+
+# ── API-H07: Prescription PDF Export ───────────────────────────────────────
+weasyprint==62.3           # HTML→PDF (primary renderer)
+reportlab==4.2.2           # Pure-Python PDF fallback (no GTK dependencies)

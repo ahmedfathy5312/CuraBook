@@ -1,0 +1,44 @@
+{% extends "email/base.html" %}
+{% block content %}
+{# FIX B-12: This template was referenced by Celery tasks but did not exist. #}
+
+<p>مرحباً <strong>{{ patient_name }}</strong>،</p>
+
+<p>
+  هذا تذكير بموعدك القادم مع
+  <strong>د. {{ doctor_name }}</strong>
+  في
+  <strong>{{ location_name }}</strong>.
+</p>
+
+<div class="highlight-box">
+  <div class="label">📅 تاريخ الموعد</div>
+  <div class="value">{{ appointment_date }}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">⏰ الوقت</div>
+  <div class="value">{{ appointment_time }}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">👨‍⚕️ الطبيب</div>
+  <div class="value">د. {{ doctor_name }}{% if doctor_specialty %} — {{ doctor_specialty }}{% endif %}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">📍 المكان</div>
+  <div class="value">{{ location_name }}{% if location_address %}<br><small style="color:#888;">{{ location_address }}</small>{% endif %}</div>
+</div>
+
+{% if reason %}
+<div class="highlight-box">
+  <div class="label">📝 سبب الزيارة</div>
+  <div class="value">{{ reason }}</div>
+</div>
+{% endif %}
+
+<p style="color:#666; font-size:13px; margin-top:24px;">
+  إذا كنت بحاجة إلى إلغاء أو إعادة جدولة موعدك، يرجى التواصل معنا في أقرب وقت ممكن.
+</p>
+{% endblock %}

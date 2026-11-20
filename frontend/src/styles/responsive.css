@@ -1,0 +1,646 @@
+/**
+ * styles/responsive.css
+ *
+ * Mobile-first responsive overrides for CuraBook.
+ * Covers the three critical breakpoints identified in the audit:
+ *   375px  — small mobile
+ *   768px  — tablet
+ *   1024px — small desktop
+ *
+ * Import this file in src/index.css or src/App.css:
+ *   @import './styles/responsive.css';
+ *
+ * Targets:
+ *  1. DoctorSearchPage — sidebar filter panel
+ *  2. Hospital / Admin tables
+ *  3. Admin audit log table
+ *  4. Dashboard stat card grids
+ *  5. Navigation / layout sidebars
+ */
+
+/* ─── Base resets for all viewports ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── 1. Doctor Search Page — Sidebar + Results grid ────────────────────────── */
+/* On desktop: sidebar left, results right */
+.doctor-search-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Tablet: sidebar becomes top filter strip */
+@media (max-width: 1024px) {
+  .doctor-search-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .doctor-search-sidebar {
+    position: static !important;
+    width: 100% !important;
+    max-height: none !important;
+  }
+
+  .doctor-search-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .doctor-search-filters > * {
+    flex: 1 1 180px;
+    min-width: 0;
+  }
+}
+
+/* Mobile: full-width stacked */
+@media (max-width: 768px) {
+  .doctor-search-layout {
+    gap: 16px;
+  }
+
+  .doctor-results-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .doctor-card {
+    flex-direction: column !important;
+  }
+
+  .doctor-card-avatar {
+    margin: 0 auto 12px !important;
+  }
+}
+
+/* ─── 2. Responsive Tables (Hospital, Admin, Audit Log) ──────────────────────── */
+/* Wrapper enables horizontal scroll on small screens */
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+/* Hide less-critical columns on small screens */
+@media (max-width: 768px) {
+  .table-col-hide-mobile {
+    display: none !important;
+  }
+
+  /* Compact table cells */
+  .data-table th,
+  .data-table td {
+    padding: 10px 12px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  /* Audit log — keep action + timestamp, hide extra meta */
+  .audit-col-meta,
+  .audit-col-ip {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+
+  /* Hospital table — hide address column */
+  .hospital-col-address {
+    display: none !important;
+  }
+}
+
+/* ─── 3. Admin Audit Log Table ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .audit-log-table {
+    font-size: 12px;
+  }
+
+  .audit-log-table .badge {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
+  }
+
+  /* Stack action buttons vertically */
+  .audit-log-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* ─── 4. Stat card grids ─────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* Desktop: 4 columns */
+.stats-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Tablet: 2 columns */
+@media (max-width: 1024px) {
+  .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 640px) {
+  .stats-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── 5. Sidebar / Navigation ────────────────────────────────────────────────── */
+/* Role-based layout sidebars collapse to overlay on mobile */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, width 0.25s ease;
+}
+
+.sidebar-collapsed {
+  width: 64px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .dashboard-main {
+    margin-inline-start: 0 !important;
+    width: 100% !important;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+}
+
+/* Mobile top navbar (shown instead of sidebar on small screens) */
+.mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    background: #fff;
+    border-bottom: 1px solid #E5E7EB;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+}
+
+/* ─── 6. Forms — Stack on mobile ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .form-row-2col {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-row-3col {
+    grid-template-columns: 1fr !important;
+  }
+
+  .modal-content {
+    margin: 8px !important;
+    max-height: calc(100vh - 16px) !important;
+    overflow-y: auto;
+  }
+}
+
+/* ─── 7. Doctor Profile page ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .doctor-profile-header {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .doctor-profile-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .doctor-profile-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slot-picker-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .slot-picker-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ─── 8. Charts — Constrain height on mobile ────────────────────────────────── */
+@media (max-width: 640px) {
+  .chart-container {
+    height: 200px !important;
+  }
+
+  .chart-container-lg {
+    height: 240px !important;
+  }
+}
+
+/* ─── 9. Pagination ──────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .pagination-container {
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+  }
+
+  /* Show only prev/next + current on very small screens */
+  .pagination-page-btn:not(.active):not(.prev):not(.next) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile { display: none !important; }
+}
+
+@media (min-width: 769px) {
+  .show-on-mobile-only { display: none !important; }
+}
+
+@media (max-width: 1024px) {
+  .hide-on-tablet { display: none !important; }
+}
+
+/* ─── 11. Hero Section (Glassmorphism) ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Stack hero columns vertically */
+  section[data-hero] {
+    flex-direction: column !important;
+    padding: 40px 16px !important;
+    min-height: auto !important;
+  }
+
+  /* Glass card takes full width */
+  section[data-hero] > div:first-of-type {
+    max-width: 100% !important;
+    padding: 24px 20px !important;
+  }
+
+  /* Hide doctor image on small screens to save space */
+  section[data-hero] > div:last-of-type {
+    display: none !important;
+  }
+
+  /* Hero h1 font size */
+  section[data-hero] h1 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ─── 12. Signup Forms — Mobile stacking ─────────────────────────────────────── */
+.signup-container {
+  padding: 20px 16px !important;
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    min-height: 100vh;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  .form-left,
+  .form-right {
+    width: 100% !important;
+  }
+
+  /* Full-width submit button already on mobile via LoadingButton style prop */
+}
+
+/* ─── 13. WelcomeBanner — Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .welcome-banner {
+    padding: 20px 16px !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  .welcome-banner h1 {
+    font-size: 1.25rem !important;
+  }
+
+  .welcome-banner .decorative-circle {
+    display: none;
+  }
+}
+
+/* ─── 14. Toast — Position fix on small screens ──────────────────────────────── */
+@media (max-width: 480px) {
+  /* Full-width toasts on very small screens */
+  div[role="region"][aria-label] {
+    right: 8px !important;
+    left: 8px !important;
+    max-width: calc(100vw - 16px) !important;
+    width: 100% !important;
+    bottom: 12px !important;
+  }
+}
+
+/* ─── 15. CuraBookNavbar — Mobile menu ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+    gap: 8px;
+    z-index: 200;
+    box-shadow: var(--shadow-md);
+  }
+
+  .navbar-hamburger {
+    display: flex !important;
+  }
+}
+
+/* ─── 16. Dashboard Stat Cards — better mobile grid ─────────────────────────── */
+@media (max-width: 480px) {
+  .stat-cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .stat-card-value {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ─── 17. Specialty cards grid — Home page ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .specialty-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+}
+
+/* ─── 18. ReportsSection — stacked on mobile ─────────────────────────────────── */
+@media (max-width: 640px) {
+  .reports-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── 19. Password Strength checklist — 1 column on xs ──────────────────────── */
+@media (max-width: 360px) {
+  .password-strength-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─── 20. RTL sidebar fix ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  [dir="rtl"] .sidebar {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  [dir="rtl"] .sidebar.open {
+    transform: translateX(0);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  [dir="rtl"] .mobile-topbar {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Phase 4 — Responsive Completions
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Dashboard main grid: 3fr 1fr → single col on tablet ───────── */
+@media (max-width: 1024px) {
+  .dashboard-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── KPI cards: min 200px → full width on mobile ───────────────── */
+@media (max-width: 640px) {
+  .kpi-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .kpi-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Quick access grid: min 200px → 2 col on mobile ────────────── */
+@media (max-width: 480px) {
+  .quick-access-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+/* ── Hero card: stack on mobile ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-card-inner {
+    flex-direction: column !important;
+    align-items:    flex-start !important;
+  }
+  .hero-stat-group {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+}
+
+/* ── Page wrapper padding on mobile ─────────────────────────────── */
+@media (max-width: 480px) {
+  .page-wrapper {
+    padding-inline: 12px !important;
+  }
+}
+
+/* ── Modal: full-screen on small phones ─────────────────────────── */
+@media (max-width: 480px) {
+  .modal-box {
+    border-radius: 20px 20px 0 0 !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+/* ── Table: horizontal scroll on small screens ───────────────────── */
+@media (max-width: 768px) {
+  .table-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table-scroll-wrap table {
+    min-width: 600px;
+  }
+}
+
+/* ── Analytics charts: full width on tablet ─────────────────────── */
+@media (max-width: 900px) {
+  .analytics-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Doctor FAB: smaller on mobile ──────────────────────────────── */
+@media (max-width: 480px) {
+  .doctor-fab { bottom: 80px !important; right: 16px !important; }
+  [dir="rtl"] .doctor-fab { left: 16px !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Enhancement #20 — Targeted Responsiveness Fixes (v13)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Appointments table grid: scrollable on tablet/mobile ───────── */
+@media (max-width: 900px) {
+  .appointments-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Prescription modal: full width on small screens */
+  .prescription-modal-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+}
+
+/* ── Video sessions section: stack on mobile ────────────────────── */
+@media (max-width: 768px) {
+  .video-sessions-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* Dashboard quick-stats: 2x2 grid */
+  .doctor-dash-kpi {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Notifications panel: full width */
+  .notifications-panel {
+    width: 100vw !important;
+    right: 0 !important;
+    left: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* ── Chat page: sidebar full-width on mobile ────────────────────── */
+@media (max-width: 640px) {
+  .chat-layout {
+    flex-direction: column !important;
+  }
+  .chat-sidebar {
+    width: 100% !important;
+    height: 200px !important;
+    overflow-y: auto;
+    border-inline-end: none !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .chat-main {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+/* ── Patient records table: hide less-critical cols on mobile ───── */
+@media (max-width: 600px) {
+  .patient-records-col-extra {
+    display: none !important;
+  }
+  .assistants-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── Buttons: full-width on very small screens ───────────────────── */
+@media (max-width: 375px) {
+  .btn-group-mobile-stack {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .btn-group-mobile-stack > * {
+    width: 100% !important;
+  }
+}

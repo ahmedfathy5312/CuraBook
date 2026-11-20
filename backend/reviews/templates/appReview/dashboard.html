@@ -1,0 +1,91 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Dashboard - مراجعات المرضى</h1>
+
+<h2>آخر 10 مراجعات</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>المريض</th>
+        <th>الدكتور</th>
+        <th>العيادة</th>
+        <th>المستشفى</th>
+        <th>التقييم</th>
+        <th>التعليق</th>
+        <th>تاريخ الإنشاء</th>
+    </tr>
+    {% for review in latest_reviews %}
+    <tr>
+        <td>{{ review.patient.username }}</td>
+        <td>{{ review.doctor.get_full_name }}</td>
+        <td>
+            {% if review.clinic %}
+                {{ review.clinic.name }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if review.hospital %}
+                {{ review.hospital.name }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>{{ review.rating }}</td>
+        <td>{{ review.comment }}</td>
+        <td>{{ review.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>أفضل الأطباء حسب متوسط التقييم</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>الدكتور</th>
+        <th>متوسط التقييم</th>
+        <th>عدد التقييمات</th>
+    </tr>
+    {% for doctor in doctor_ratings %}
+    <tr>
+        <td>{{ doctor.doctor__full_name }}</td>
+        <td>{{ doctor.avg_rating|floatformat:1 }}</td>
+        <td>{{ doctor.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>متوسط التقييم لكل مستشفى</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>المستشفى</th>
+        <th>متوسط التقييم</th>
+        <th>عدد التقييمات</th>
+    </tr>
+    {% for hospital in hospital_ratings %}
+    <tr>
+        <td>{{ hospital.hospital__name }}</td>
+        <td>{{ hospital.avg_rating|floatformat:1 }}</td>
+        <td>{{ hospital.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>متوسط التقييم لكل عيادة</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>العيادة</th>
+        <th>متوسط التقييم</th>
+        <th>عدد التقييمات</th>
+    </tr>
+    {% for clinic in clinic_ratings %}
+    <tr>
+        <td>{{ clinic.clinic__name }}</td>
+        <td>{{ clinic.avg_rating|floatformat:1 }}</td>
+        <td>{{ clinic.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

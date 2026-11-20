@@ -1,0 +1,107 @@
+# ══════════════════════════════════════════════
+#   CuraBook — .gitignore
+# ══════════════════════════════════════════════
+
+# ── Secrets & Environment ──────────────────────
+.env
+.env.local
+.env.production
+backend/.env
+backend/.env.local
+# ✅ keep .env.example (it's safe — no real secrets)
+
+# ── Python / Django ────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+
+# Django
+backend/staticfiles/
+backend/media/
+backend/logs/
+*.log
+
+# Django migrations 
+# uncommit 
+# backend/**/migrations/0*.py
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+*.cover
+
+# ── Node.js / Frontend ─────────────────────────
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vite / React Build
+frontend/dist/
+frontend/build/
+.parcel-cache/
+
+# ── Docker ─────────────────────────────────────
+docker/postgres-data/
+docker/redis-data/
+
+# ── IDE / Editor ───────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Certificates / Keys ────────────────────────
+*.pem
+*.key
+*.crt
+*.p12
+backend/certs/
+
+# ── Test Artifacts ─────────────────────────────
+playwright-report/
+test-results/
+testsprite_tests/
+e2e/screenshots/
+
+# ── Misc ───────────────────────────────────────
+*.bak
+*.tmp
+*.orig
+Makefile.local
+
+# Extra safety
+.env.*
+!.env.example
+!frontend/.env.development
+*.dump
+*.sql
+backend/backups/*
+!backend/backups/.keep
+.agents/

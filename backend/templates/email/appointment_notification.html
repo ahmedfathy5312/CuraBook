@@ -1,0 +1,42 @@
+{% extends "email/base.html" %}
+{% block content %}
+<p>مرحباً <strong>{{ user_name }}</strong>،</p>
+<p>{{ intro_line }}</p>
+
+<div class="highlight-box">
+  <div class="label">الطبيب</div>
+  <div class="value">{{ doctor_name }}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">التاريخ والوقت</div>
+  <div class="value">{{ slot_time }}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">المكان</div>
+  <div class="value">{{ location }}</div>
+</div>
+
+<div class="highlight-box">
+  <div class="label">حالة الموعد</div>
+  <div class="value class="{{ status_class }}">{{ status_label }}</div>
+</div>
+
+{% if reason %}
+<div class="highlight-box">
+  <div class="label">ملاحظة</div>
+  <div class="value">{{ reason }}</div>
+</div>
+{% endif %}
+
+{% if cta_url %}
+<p style="text-align:center; margin-top: 24px;">
+  <a href="{{ cta_url }}" class="btn">{{ cta_label }}</a>
+</p>
+{% endif %}
+
+<p style="color:#888; font-size:13px; margin-top:24px;">
+  رقم الموعد: <strong>#{{ appointment_id }}</strong>
+</p>
+{% endblock %}

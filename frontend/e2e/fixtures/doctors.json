@@ -1,0 +1,13 @@
+[
+  {
+    "id": "e2e-doctor-001",
+    "username": "e2e_doctor",
+    "full_name": "Dr. E2E Test",
+    "email": "doctor@curabook.test",
+    "specialty": "General Medicine",
+    "consultation_fee": 200,
+    "is_approved": true,
+    "years_of_experience": 5,
+    "bio": "E2E test doctor for automated testing."
+  }
+]

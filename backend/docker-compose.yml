@@ -1,0 +1,171 @@
+# ─────────────────────────────────────────────────────────────
+# CuraBook — Docker Compose (Production-ready)
+# Services: nginx, web (Daphne), celery_worker, celery_beat,
+#           db (PostgreSQL), redis
+# ─────────────────────────────────────────────────────────────
+
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB:       ${DB_NAME:-curabook_db}
+      POSTGRES_USER:     ${DB_USER:-curabook_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-curabook_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Django / Daphne (HTTP + WebSocket) ──────────────────────
+  web:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST:    db
+      REDIS_HOST: redis
+      DJANGO_SETTINGS_MODULE: curabook.settings.prod
+    volumes:
+      - media_data:/app/media
+      - static_data:/app/staticfiles
+      - logs_data:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    expose:
+      - "8000"   # Internal only — NGINX proxies to this
+
+  # ── NGINX (Reverse Proxy + SSL + Rate Limiting) ──────────────
+  nginx:
+    image: nginx:1.25-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - static_data:/app/staticfiles:ro
+      - media_data:/app/media:ro
+      - nginx_ssl:/etc/nginx/ssl        # Mount your SSL certs here
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - web
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Celery Worker ─────────────────────────────────────────────
+  celery_worker:
+    build: .
+    restart: unless-stopped
+    command: >
+      celery -A curabook worker
+      --loglevel=info
+      --concurrency=4
+      --queues=default,notifications,emails
+    env_file: .env
+    environment:
+      DB_HOST:    db
+      REDIS_HOST: redis
+      DJANGO_SETTINGS_MODULE: curabook.settings.prod
+    volumes:
+      - logs_data:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "celery", "-A", "curabook", "inspect", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Celery Beat (DB-backed Scheduler) ─────────────────────────
+  celery_beat:
+    build: .
+    restart: unless-stopped
+    command: >
+      celery -A curabook beat
+      --loglevel=info
+      --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    env_file: .env
+    environment:
+      DB_HOST:    db
+      REDIS_HOST: redis
+      DJANGO_SETTINGS_MODULE: curabook.settings.prod
+    volumes:
+      - logs_data:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # ── Prometheus (scrapes /metrics) ──────────────────────────────
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    restart: unless-stopped
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=15d'
+      - '--web.enable-lifecycle'
+    ports:
+      - "127.0.0.1:9090:9090"   # localhost only — not exposed externally
+    depends_on:
+      - web
+
+  # ── Grafana (dashboards) ────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:11.2.0
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: "%(protocol)s://%(domain)s/grafana/"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning:ro
+    ports:
+      - "127.0.0.1:3000:3000"   # localhost only
+    depends_on:
+      - prometheus
+
+volumes:
+  postgres_data:
+  redis_data:
+  media_data:
+  static_data:
+  logs_data:
+  nginx_ssl:
+  nginx_logs:
+  prometheus_data:
+  grafana_data:
+

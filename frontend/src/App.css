@@ -1,0 +1,79 @@
+/* ── App Shell ───────────────────────────────────────────────────────────── */
+.app-container { display: flex; flex-direction: column; min-height: 100vh; background: #F4F8FB; }
+.main-content  { flex: 1; display: flex; flex-direction: column; }
+button { font-family: var(--font-family); cursor: pointer; border: none; background: transparent; transition: var(--transition); }
+button:disabled { opacity: 0.50; cursor: not-allowed; }
+.MuiButton-root { font-family: var(--font-family) !important; border-radius: var(--radius-md) !important; font-weight: 600 !important; text-transform: none !important; box-shadow: none !important; }
+.MuiButton-containedPrimary, .btn-save { background: var(--color-primary) !important; color: #fff !important; padding: 10px 24px !important; border-radius: var(--radius-md) !important; }
+.MuiButton-containedPrimary:hover, .btn-save:hover { background: var(--color-primary-dark) !important; }
+.btn-cancel { background: #F4F8FB !important; color: #5D7E96 !important; padding: 10px 24px !important; border-radius: var(--radius-md) !important; border: 1px solid #DDE8F0 !important; }
+.btn-cancel:hover { background: #DDE8F0 !important; color: #2D4A5E !important; }
+
+/* ══════════════════════════════════════════════════════════════════
+   Phase 4 — Global Design Utilities
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Page enter animation (used by PageWrapper + router) ────────── */
+.page-enter {
+  animation: page-enter 0.25s ease both;
+}
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+/* ── Skeleton shimmer (used by designSystem.skeleton()) ─────────── */
+@keyframes ds-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Card hover lift (utility class) ───────────────────────────── */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card-hover:hover {
+  transform:  translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ── Focus-visible ring ─────────────────────────────────────────── */
+*:focus-visible {
+  outline:        2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius:  var(--radius-sm);
+}
+
+/* ── Smooth scrolling ────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+/* ── Custom scrollbar (Webkit) ───────────────────────────────────── */
+::-webkit-scrollbar               { width: 6px; height: 6px; }
+::-webkit-scrollbar-track         { background: var(--bg-page); }
+::-webkit-scrollbar-thumb         { background: var(--border-dark); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover   { background: var(--primary); }
+
+/* ── Truncate text helpers ───────────────────────────────────────── */
+.truncate-1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.truncate-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.truncate-3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+/* ── Responsive grid helpers ─────────────────────────────────────── */
+.grid-auto-fill-200 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.grid-auto-fill-260 { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+.grid-auto-fill-300 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+/* ── Print — hide nav/sidebar ────────────────────────────────────── */
+@media print {
+  .curabook-navbar, .mobile-bottom-nav, .doctor-fab { display: none !important; }
+  .main-content { padding: 0 !important; }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration:  0.01ms !important;
+  }
+}

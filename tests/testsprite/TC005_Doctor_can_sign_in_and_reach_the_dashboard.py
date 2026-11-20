@@ -1,0 +1,91 @@
+import asyncio
+import re
+from playwright import async_api
+from playwright.async_api import expect
+
+async def run_test():
+    pw = None
+    browser = None
+    context = None
+
+    try:
+        # Start a Playwright session in asynchronous mode
+        pw = await async_api.async_playwright().start()
+
+        # Launch a Chromium browser in headless mode with custom arguments
+        browser = await pw.chromium.launch(
+            headless=True,
+            args=[
+                "--window-size=1280,720",
+                "--disable-dev-shm-usage",
+                "--ipc=host",
+                "--single-process"
+            ],
+        )
+
+        # Create a new browser context (like an incognito window)
+        context = await browser.new_context()
+        # Wider default timeout to match the agent's DOM-stability budget;
+        # auto-waiting Playwright APIs (expect, locator.wait_for) inherit this.
+        context.set_default_timeout(15000)
+
+        # Open a new page in the browser context
+        page = await context.new_page()
+
+        # Interact with the page elements to simulate user flow
+        # -> navigate
+        await page.goto("http://localhost:5173")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # -> Navigate directly to http://localhost:5173/login and wait for the page to load so the login form can be interacted with.
+        await page.goto("http://localhost:5173/login")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # -> navigate
+        await page.goto("http://localhost:5173/login")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # -> Reload the /login page (navigate to http://localhost:5173/login) after a 2-second wait to give the SPA another chance to mount, then re-check for the login form.
+        await page.goto("http://localhost:5173/login")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # -> Final action — this is where the agent failed
+        # Error observed by agent: Navigation failed - site unavailable: http://localhost:5173/login
+        await page.goto("http://localhost:5173/login")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
+        # --> Assertions to verify final state
+        current_url = await page.evaluate("() => window.location.href")
+        assert '/doctor' in current_url, "The page should have navigated to the doctor dashboard after successful login"
+        assert await page.locator("xpath=//*[contains(., 'Appointments') and contains(., 'Patient Records')]").nth(0).is_visible(), "The dashboard should display appointments and patient record summaries after login"
+        
+        # --> Test blocked by environment/access constraints during agent run
+        # Reason: TEST BLOCKED The doctor login UI could not be reached — the SPA did not render the login page, so the authentication flow could not be exercised. Observations: - The page at http://localhost:5173/login shows no interactive elements and appears blank (0 interactive elements). - Multiple attempts were made to load the login UI (several navigations and waits) but the SPA never mounted or rendered ...
+        raise AssertionError("Test blocked during agent run: " + "TEST BLOCKED The doctor login UI could not be reached \u2014 the SPA did not render the login page, so the authentication flow could not be exercised. Observations: - The page at http://localhost:5173/login shows no interactive elements and appears blank (0 interactive elements). - Multiple attempts were made to load the login UI (several navigations and waits) but the SPA never mounted or rendered ..." + " — the exported script cannot reproduce a PASS in this environment.")
+        await asyncio.sleep(5)
+
+    finally:
+        if context:
+            await context.close()
+        if browser:
+            await browser.close()
+        if pw:
+            await pw.stop()
+
+asyncio.run(run_test())
+    
